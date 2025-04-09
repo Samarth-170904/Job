@@ -1,0 +1,21 @@
+Name,URL,Remote,Adaptive,Duration,Type,Description
+SHL Numerical Reasoning Test,https://www.shl.com/test/numerical-reasoning,Yes,Yes,25 mins,Cognitive,Assesses numerical analysis skills
+SHL Verbal Reasoning Test,https://www.shl.com/test/verbal-reasoning,Yes,Yes,20 mins,Cognitive,Measures verbal comprehension
+SHL Python Developer Test,https://www.shl.com/test/python-developer,Yes,Yes,40 mins,Coding,Evaluates Python coding skills
+SHL Inductive Reasoning,https://www.shl.com/test/inductive-reasoning,Yes,No,30 mins,Logical,Tests abstract pattern reasoning
+SHL Technical Aptitude Test,https://www.shl.com/test/technical-aptitude,Yes,No,45 mins,Analytical,Tests technical and logic skills
+SHL Mechanical Comprehension,https://www.shl.com/test/mechanical-test,Yes,No,25 mins,Mechanical,Tests mechanical understanding
+SHL Situational Judgement,https://www.shl.com/test/situational-judgment,Yes,Yes,30 mins,Behavioral,Evaluates workplace judgment
+SHL Motivation Questionnaire,https://www.shl.com/test/mq,Yes,No,20 mins,Personality,Assesses motivational factors
+SHL OPQ Personality Test,https://www.shl.com/test/opq,Yes,No,40 mins,Personality,Measures personality traits
+SHL Java Developer Test,https://www.shl.com/test/java-developer,Yes,Yes,40 mins,Coding,Tests Java programming skills
+SHL Logical Reasoning Test,https://www.shl.com/test/logical-reasoning,Yes,Yes,30 mins,Logical,Evaluates logic and problem-solving
+SHL Customer Service Aptitude,https://www.shl.com/test/customer-service,Yes,No,25 mins,Behavioral,Measures customer orientation
+SHL Excel Proficiency Test,https://www.shl.com/test/excel,Yes,No,35 mins,Technical,Tests Excel knowledge and usage
+SHL Leadership Judgement,https://www.shl.com/test/leadership-judgement,Yes,No,45 mins,Behavioral,Assesses leadership capabilities
+SHL Project Management Test,https://www.shl.com/test/project-management,Yes,No,30 mins,Managerial,Evaluates PM knowledge and skills
+SHL C++ Developer Test,https://www.shl.com/test/cpp-developer,Yes,Yes,40 mins,Coding,Tests C++ programming knowledge
+SHL Critical Thinking Test,https://www.shl.com/test/critical-thinking,Yes,Yes,25 mins,Cognitive,Measures analytical decision-making
+SHL Sales Aptitude Test,https://www.shl.com/test/sales-aptitude,Yes,No,30 mins,Behavioral,Tests persuasion & sales instincts
+SHL Administrative Aptitude,https://www.shl.com/test/admin-aptitude,Yes,No,20 mins,Analytical,Tests office admin capabilities
+SHL Data Interpretation Test,https://www.shl.com/test/data-interpretation,Yes,Yes,35 mins,Analytical,Measures data analysis skills
