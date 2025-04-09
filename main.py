@@ -5,34 +5,18 @@ import google.generativeai as genai
 import os
 import json
 from dotenv import load_dotenv
+from typing import List
 
-# Load API key from environment
+# Load Gemini API key
 load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-if not api_key:
-    raise ValueError("GEMINI_API_KEY is not set.")
-
-genai.configure(api_key=api_key)
-
-# Load dataset
+# Load assessment dataset
 df = pd.read_csv("SHLTask1.csv")
 
-# Define expected input model
+# Request body
 class QueryInput(BaseModel):
     query: str
-
-# Define output format
-class AssessmentOutput(BaseModel):
-    url: str
-    adaptive_support: str
-    description: str
-    duration: int
-    remote_support: str
-    test_type: list[str]
-
-class RecommendationResponse(BaseModel):
-    recommended_assessments: list[AssessmentOutput]
 
 # FastAPI app
 app = FastAPI()
@@ -41,57 +25,57 @@ app = FastAPI()
 def root():
     return {"message": "SHL Assessment API is running."}
 
-@app.post("/recommend", response_model=RecommendationResponse)
-def recommend(data: QueryInput):
+@app.post("/recommend")
+def recommend_assessments(data: QueryInput):
     model = genai.GenerativeModel("gemini-1.5-pro-001")
 
     prompt = f"""
-You’re an expert assistant helping recruiters choose SHL assessments.
+You are an assistant helping HRs select SHL assessments.
 
-Given this job description:
+Here is a job description:
 \"\"\"{data.query}\"\"\"
 
-Return up to 10 relevant assessments from the list:
+Suggest 1–10 relevant SHL assessments based on this job description.
+
+Use the following list of assessments:
 {df.to_string(index=False)}
 
-Format the response **exactly** like this:
+Return only a valid JSON list in this format:
 [
   {{
     "url": "https://...",
-    "adaptive_support": "Yes",
-    "description": "Text here",
-    "duration": 45,
-    "remote_support": "Yes",
-    "test_type": ["Category1", "Category2"]
+    "adaptive_support": "Yes" or "No",
+    "description": "Text",
+    "duration": 30,
+    "remote_support": "Yes" or "No",
+    "test_type": ["Type1", "Type2"]
   }},
   ...
 ]
-Only return the JSON list.
-"""
+Only return the list — no extra text or explanation.
+    """
 
     try:
         response = model.generate_content(prompt)
-        parsed = json.loads(response.text)
+        assessments = json.loads(response.text)
 
-        # Validate and limit results to max 10
-        validated = []
-        for item in parsed:
-            validated.append({
+        formatted = []
+        for item in assessments:
+            formatted.append({
                 "url": item.get("url", ""),
                 "adaptive_support": item.get("adaptive_support", "No"),
                 "description": item.get("description", ""),
                 "duration": int(item.get("duration", 0)),
                 "remote_support": item.get("remote_support", "No"),
-                "test_type": item.get("test_type", []),
+                "test_type": item.get("test_type", []) or []
             })
-            if len(validated) == 10:
+            if len(formatted) == 10:
                 break
 
-        return {"recommended_assessments": validated}
+        return {"recommended_assessments": formatted}
 
-    except json.JSONDecodeError:
+    except Exception as e:
         return {
             "recommended_assessments": [],
-            "error": "Failed to parse Gemini response",
-            "raw_response": response.text
+            "error": str(e)
         }
